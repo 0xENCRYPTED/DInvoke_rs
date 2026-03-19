@@ -586,6 +586,8 @@ pub fn set_module_section_permissions(pe_info: &PeMetadata, image_ptr: *mut c_vo
        
         for section in &pe_info.sections
         {
+            if section.Characteristics.0 == 0 { continue };
+            
             let is_read = (section.Characteristics.0 & SECTION_MEM_READ) != 0;
             let is_write = (section.Characteristics.0 & SECTION_MEM_WRITE) != 0;
             let is_execute = (section.Characteristics.0 & SECTION_MEM_EXECUTE) != 0;
